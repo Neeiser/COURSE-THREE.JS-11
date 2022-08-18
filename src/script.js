@@ -1,6 +1,35 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// NON IMPORTO L'IMMAGINE CON "IMPORT" PERCHE' LO STATIC FOLDER FUNGE TIPO DA ROUTE
+
+//TEXTURE - Metodo Lungo
+
+/* 
+const image = new Image()
+const texture = new THREE.Texture(image)
+
+image.onload = () =>
+{
+    texture.needsUpdate = true
+}
+
+image.src = '/textures/door/color.jpg'
+*/
+
+//TEXTURE - Metodo OTTIMALE
+
+const textureLoader = new THREE.TextureLoader()
+const colorTexture = textureLoader.load('/textures/door/color.jpg')
+const alphaTexture = textureLoader.load('/textures/door/alpha.jpg')
+const heightTexture = textureLoader.load('/textures/door/height.jpg')
+const normalTexture = textureLoader.load('/textures/door/normal.jpg')
+const ambientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
+const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
+const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
+// const ...texture = textureLoader.load('ALTRA TEXTURE')
+// const ...texture = textureLoader.load('UN'ALTRA ANCORA E COSI' VIA ')
+
 
 /**
  * Base
@@ -15,7 +44,7 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ map: colorTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
